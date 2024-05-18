@@ -105,42 +105,30 @@ require 'function.php';
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
-    <!-- The Modal -->
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog">
-        <div class="modal-content">
+     <!-- Modal body -->
+           <form method="post">
+    <div class="modal-body">
+
+        <select name="barangnya" class="form-control mb-3">
+            <?php
+                $ambilsemuadatanya = mysqli_query($koneksi, "SELECT * FROM stock");
+                while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
+                    $namabarangnya = $fetcharray['namabarang'];
+                    $idbarangnya = $fetcharray['idbarang'];
+            ?>
+            <option value="<?=$idbarangnya;?>"><?=$namabarangnya;?></option>
+            <?php
+                }
+            ?>
+        </select>
         
-            <!-- Modal Header -->
-            <div class="modal-header">
-            <h4 class="modal-title">Tambah Barang Masuk</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            
-            <!-- Modal body -->
-            <form method="post">
-            <div class="modal-body">
-
-            <select name="barangnya" class="form-control">
-                <?php
-                    $ambilsemuadatanya = mysqli_query($koneksi,"select * from stock");
-                    while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
-                        $namabarangnya = $fetcharray['namabarang'];
-                        $idbarangnya = $fetcharray['idbarang'];
-
-                ?>
-                
-                <option value="<?=$idbarangnya;?>"><?=$namabarangnya;?></option>
-
-                <?php
-                    }
-                ?>
-            </select>
-            <br>
-            <input type="text" name="penerima" placeholder="Penerima" class="form-control" required="">
-            <br>
-            <button type="submit" class="btn btn-primary" name="barangmasuk">Submit</button>
-            </div>
-            </form>
+        <input type="number" name="qty" placeholder="Stock" class="form-control mb-3" required="">
+        
+        <input type="text" name="penerima" placeholder="Penerima" class="form-control mb-3" required="">
+        
+        <button type="submit" class="btn btn-primary" name="barangmasuk">Submit</button>
+    </div>
+</form>
             
         </div>
         </div>
