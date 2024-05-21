@@ -60,23 +60,35 @@ require 'function.php';
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
-                                    <thead>
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal</th>
+                                        <th>Nama Barang</th>
+                                        <th>Jumlah</th>
+                                        <th>Penerima</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    // Query to fetch data
+                                    $ambilsemuadatastock = mysqli_query($koneksi, "SELECT k.tanggal, s.namabarang, k.qty, k.penerima FROM keluar k, stock s WHERE s.idbarang = k.idbarang");
+                                    while ($data = mysqli_fetch_array($ambilsemuadatastock)) {
+                                        $tanggal = $data['tanggal'];
+                                        $namabarang = $data['namabarang'];
+                                        $qty = $data['qty'];
+                                        $penerima = $data['penerima'];
+                                    ?>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nama Barang</th>
-                                            <th>Deskripsi</th>
-                                            <th>Stock</th>
+                                            <td><?= $tanggal; ?></td>
+                                            <td><?= $namabarang; ?></td>
+                                            <td><?= $qty; ?></td>
+                                            <td><?= $penerima; ?></td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                    <?php
+                                    };
+                                    ?>
+                                </tbody>
+                            </table>
                             </div>
                         </div>
                     </div>
